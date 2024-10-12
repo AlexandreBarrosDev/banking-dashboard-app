@@ -1,19 +1,50 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
-import React from 'react'
+import { sidebarLinks } from '@/constants'
+import { cn } from '@/lib/utils'
+import { usePathname } from 'next/navigation'
 
 const Sidebar = ({ user }: SiderbarProps) => {
+    
+    const pathname = usePathname()
+
   return (
     <section className='sidebar'>
         <nav className='flex flex-col gap-4'>
             <Link href='/' 
             className='mb-12 cursor-pointer itens-center gap-2'>
-                <Image 
+                <Image
+                    className='size-[35px] max-xl:size-14' 
                     src='icons/logo2.svg'
                     width={50}
                     height={50}
+                    alt='Type bank logo'
                 />
+                <h1 className='sidebar-logo'>Type Bank</h1>
             </Link>
+            {
+                sidebarLinks.map((item) => {
+                    const isActive = pathname === item.route || pathname.
+                    startsWith(`${item.route}/`)
+                    return(
+                        <Link href={item.route}
+                        key={item.label}
+                        className={
+                            cn(
+                              'sidebar-link', {
+                                'bg-bank-gradient':
+                                isActive
+                              }  
+                            )
+                        }
+                        >
+                            {item.label}
+                        </Link>
+                    )
+                })
+            }
         </nav>
     </section>
   )
