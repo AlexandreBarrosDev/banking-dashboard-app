@@ -14,7 +14,7 @@ const Sidebar = ({ user }: SiderbarProps) => {
     <section className='sidebar'>
         <nav className='flex flex-col gap-4'>
             <Link href='/' 
-            className='mb-12 cursor-pointer itens-center gap-2'>
+            className='mb-12 cursor-pointer flex itens-center gap-2'>
                 <Image
                     className='size-[35px] max-xl:size-14' 
                     src='icons/logo2.svg'
@@ -40,12 +40,31 @@ const Sidebar = ({ user }: SiderbarProps) => {
                             )
                         }
                         >
-                            {item.label}
+                            <div className='relative size-6'>
+                                <Image 
+                                    src={item.imgURL}
+                                    alt={item.label}
+                                    fill
+                                    className={cn({
+                                        'brightness-[3] invert-0':
+                                        isActive
+                                    })}
+                                />
+                            </div>
+                            <p className={cn(
+                                'sidebar-label',{
+                                '!text-white':
+                                isActive
+                                })}>
+                                {item.label}
+                            </p>
                         </Link>
                     )
                 })
             }
+            USER
         </nav>
+        FOOTER
     </section>
   )
 }
